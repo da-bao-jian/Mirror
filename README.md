@@ -1,4 +1,3 @@
-# mirror
 
 # The Mirror
 
@@ -11,6 +10,12 @@ Mirror is a real time human-computer interaction app where computer will capture
 -P5/Threejs/D3/pts (TBD)
 
 -Vanilla Javascript
+
+
+![wireframe](https://github.com/dabaojian1992/mirror/blob/main/wireframe.png)
+
+
+
 
 ### File Structure ###
 

@@ -8,5 +8,6 @@ const s = function( sketch ) {
       sketch.background(0);
     };
   };    
-  const myp5 = new p5(s);
+const myp5 = new p5(s);
 
+console.log('a')

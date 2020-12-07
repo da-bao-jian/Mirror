@@ -5,8 +5,11 @@ Mirror is a real time human-computer interaction app where computer will capture
 Technology Used
 
 -Tensorflowjs
+
 -P5/Threejs/D3/pts (TBD)
+
 -Vanilla Javascript
+
 
 MVP
 

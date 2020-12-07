@@ -15,8 +15,8 @@ MVP
 
 Timeline
 
-12/7 getting familiar with using tensorflowjs library and finish facial structure detection
-12/8 experimenting different visual libraries
+12/7 getting familiar with using tensorflowjs library and generating facial structure detection
+12/8 generating the facial structure detection/experimenting different visual libraries
 12/9 creating real-time effect
 12/10 creating real-time effect
 12/11 incorporating art effect through user's camera

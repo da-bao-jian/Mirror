@@ -40,6 +40,7 @@ Mirror is a real time human-computer interaction app where computer will capture
 ### Functionality and MVP ###
 
 -Computer is able to detect user's facial structure 
+
 -real-time effect rendering per user's selection 
 
 ### Timeline ###

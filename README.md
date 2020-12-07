@@ -2,7 +2,7 @@
 
 Mirror is a real time human-computer interaction app where computer will capture the user's facial structure and generat art effect.
 
-Technology Used
+### Technology Used###
 
 -Tensorflowjs
 
@@ -10,7 +10,7 @@ Technology Used
 
 -Vanilla Javascript
 
-File Structure
+###File Structure###
 
 
 •dist 
@@ -37,12 +37,12 @@ File Structure
 
 
 
-Functionality and MVP
+###Functionality and MVP###
 
 -Computer is able to detect user's facial structure 
 -real-time effect rendering per user's selection 
 
-Timeline
+###Timeline###
 
 12/7 getting familiar with using tensorflowjs library and generating facial structure detection
 
@@ -54,5 +54,5 @@ Timeline
 
 12/11 incorporating art effect through user's camera
 
-Bonus Features
+###Bonus Features###
 -incorporating user's voice into the app and generating effects real time according user's voice input

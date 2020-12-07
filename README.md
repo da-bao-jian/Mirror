@@ -10,7 +10,7 @@ Mirror is a real time human-computer interaction app where computer will capture
 
 -Vanilla Javascript
 
-###File Structure###
+### File Structure ###
 
 
 •dist 

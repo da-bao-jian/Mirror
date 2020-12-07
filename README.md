@@ -10,8 +10,34 @@ Technology Used
 
 -Vanilla Javascript
 
+File Structure
 
-MVP
+
+•dist 
+
+•src
+
+•index.html
+
+•gitignore
+
+•node_modules
+
+•package.json
+
+•package.lock.json
+
+•postcss.config.js
+
+•webpack.common.js
+
+•webpack.dev.js
+
+•webpack.prod.js
+
+
+
+Functionality and MVP
 
 -Computer is able to detect user's facial structure 
 -real-time effect rendering per user's selection 
@@ -28,3 +54,5 @@ Timeline
 
 12/11 incorporating art effect through user's camera
 
+Bonus Features
+-incorporating user's voice into the app and generating effects real time according user's voice input

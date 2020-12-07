@@ -12,6 +12,8 @@ Mirror is a real time human-computer interaction app where computer will capture
 -Vanilla Javascript
 
 
+### Wireframe ###
+
 ![wireframe](https://github.com/dabaojian1992/mirror/blob/main/wireframe.png)
 
 

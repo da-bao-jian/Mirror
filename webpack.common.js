@@ -4,7 +4,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const outputDir = "./dist";
 
 module.exports = {
+<<<<<<< HEAD
 entry: path.resolve(__dirname, "src", "index.js"), 
+=======
+entry: path.resolve(__dirname, "src", "index.js"), //
+>>>>>>> d2a4144ea4e2a4859e01fb2ea826c2de709ac08c
 output: {
     path: path.join(__dirname, outputDir),
     filename: "[name].js",
@@ -34,7 +38,12 @@ module: {
             options: {
             // you can specify a publicPath here
             // by default it uses publicPath in webpackOptions.output
+<<<<<<< HEAD
             publicPath: "../",
+=======
+            publicPath: "../"
+            // hmr: process.env.NODE_ENV === "development",
+>>>>>>> d2a4144ea4e2a4859e01fb2ea826c2de709ac08c
             },
         },
         "css-loader",
@@ -64,7 +73,12 @@ module: {
             options: {
             // you can specify a publicPath here
             // by default it uses publicPath in webpackOptions.output
+<<<<<<< HEAD
             publicPath: "../",
+=======
+            publicPath: "../"
+            // hmr: process.env.NODE_ENV === "development",
+>>>>>>> d2a4144ea4e2a4859e01fb2ea826c2de709ac08c
             },
         },
         "css-loader",

@@ -1,28 +1,54 @@
 import "./styles/index.scss";
-import * as facemeth from '@tensorflow-models/facemesh';
+import * as facemesh from '@tensorflow-models/face-landmarks-detection';
+import '@tensorflow/tfjs-backend-webgl';
 import TRIANGULATION from './scripts/triangulation';
 import 'regenerator-runtime/runtime';
 //setup webcam 
 async function getCameraReady() {
+    const cam = document.getElementById('cam');
     navigator.mediaDevices.getUserMedia({
         video: {
-            // width: {ideal: 680}, //need to be further adjusted to match canvas
-            // height: {min: 550, ideal: 400, max: 1000},
             frameRate: {ideal: 12, max:15} 
         }
     }).then((stream)=>{
-        document.getElementById('cam').srcObject = stream;
+        cam.srcObject = stream;
     }).catch((err)=>{
         console.log(err);
     });
+
+    const promise = new Promise(resolve=>{
+        cam.onloadedmetadata = () => {
+            resolve(cam)
+        }
+    });
+
+    return promise.then(
+        ()=>(console.log('webcam setup ready')),
+        ()=>(console.log('webcam setup failed'))
+    )
 }
 
+
+
+//run detection
+async function runDetection(model){
+    const webCam = document.getElementById('cam');
+    if(cam.readyState === 4){
+        const predictions_arr = await model.estimateFaces({input: webCam});
+        console.log(predictions_arr);
+    }
+    // window.requestAnimationFrame(runDetection)
+}
 
 
 async function main(){
     await getCameraReady();
+    const model = await facemesh.load(
+        facemesh.SupportedPackages.mediapipeFacemesh);
+    // await getCameraReady();
+    await runDetection(model);
 
 }
-// main()
+main()
 
 

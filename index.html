@@ -14,14 +14,18 @@
     <!-- playinline for not having the modal like effect  -->
     <!-- autoplay for automatic play when page's loaded -->
     <div id='webcam'>
-        <video id="cam" autoplay='true' playsinline></video>
+        <video id="cam" autoplay='true' playsinline style='
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            width: 50%;
+        '></video>
 
-        <canvas id='canvas'>
+        <canvas id='canvas' style="
+            width: 50%;
+        ">
         </canvas>
     </div>
 
-    <!-- <video id="webcam" autoplay playsinline width="640" height="480"></video>
-    <canvas id="canvas" class="d-none"></canvas> -->
 
 
 

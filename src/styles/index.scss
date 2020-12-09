@@ -1,0 +1,14 @@
+#webcam{
+    min-height: 100vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    #cam{
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+}

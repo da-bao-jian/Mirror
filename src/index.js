@@ -1,30 +1,16 @@
-import "./styles/index.scss"
-import * as tf from '@tensorflow/tfjs'
-import { fill } from "@tensorflow/tfjs";
-import * as p5 from 'p5'
+import "./styles/index.scss";
+import * as facemeth from '@tensorflow-models/facemesh';
 
-// function setUp(){
-    // tf.tensor([1,2,3,4]).print()
-    // console.log('a')
-// }
-
-//domcontentloaded might be needed later
-
-const s = (sketch) => {
-    const x=100;
-    const y=100;
-    sketch.setup = function(){
-        sketch.createCanvas(700, 410);
-        sketch.background(0)
-        sketch.ellipse(50,50,80,70)
-    };
-    sketch.draw = function(){
-        sketch.rect(x,y,50,50)
+//setup webcam and canvas
+navigator.mediaDevices.getUserMedia({
+    video: {
+        width: {min: 1024, ideal: 680, max: 1920},
+        height: {min: 550, ideal: 400, max: 1000},
+        frameRate: {ideal: 12, max:15}
     }
-    
+}).then((stream)=>{
+    document.getElementById('cam').srcObject = stream;
+});
 
-}
-
-const myCanvas = new p5(s)
 
 

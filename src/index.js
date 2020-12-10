@@ -3,8 +3,11 @@ import * as facemesh from '@tensorflow-models/face-landmarks-detection';
 import '@tensorflow/tfjs-backend-webgl';
 import TRIANGULATION from './scripts/triangulation';
 import 'regenerator-runtime/runtime';
+
+
+
 //setup webcam 
-async function getCameraReady() {
+function getCameraReady() {
     const cam = document.getElementById('cam');
     navigator.mediaDevices.getUserMedia({
         video: {
@@ -16,13 +19,16 @@ async function getCameraReady() {
         console.log(err);
     });
 
-    const promise = new Promise(resolve=>{
-        cam.onloadedmetadata = () => {
+    //promise constructor to make sure the webcam reaches certain stage before loading model
+    //more info on promises: https://javascript.info/promise-basics
+    const promise = new Promise((resolve, reject)=>{
+        cam.onprogress = () => {
             resolve(cam)
         }
     });
 
     return promise.then(
+        // (values)=>(console.log(values)),
         ()=>(console.log('webcam setup ready')),
         ()=>(console.log('webcam setup failed'))
     )
@@ -31,24 +37,26 @@ async function getCameraReady() {
 
 
 //run detection
-async function runDetection(model){
+let model; //declare model variable for the requestAnimationFrame's callback so runDetection doesn't have to take in an argument
+async function runDetection(){
     const webCam = document.getElementById('cam');
     if(cam.readyState === 4){
         const predictions_arr = await model.estimateFaces({input: webCam});
         console.log(predictions_arr);
-    }
-    // window.requestAnimationFrame(runDetection)
+    };
+    //recursively calling itself to continously run the detection 
+    window.requestAnimationFrame(runDetection);
+    
 }
-
 
 async function main(){
     await getCameraReady();
-    const model = await facemesh.load(
+    model = await facemesh.load(
         facemesh.SupportedPackages.mediapipeFacemesh);
     // await getCameraReady();
-    await runDetection(model);
+    runDetection();
 
 }
-main()
+// main()
 
 

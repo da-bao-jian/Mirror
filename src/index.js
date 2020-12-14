@@ -2,7 +2,7 @@ import "./styles/index.scss";
 import * as facemesh from '@tensorflow-models/face-landmarks-detection';
 import '@tensorflow/tfjs-backend-webgl';
 import TRIANGULATION from './scripts/triangulation';
-import {drawCanvas, drawTriangular} from './scripts/mask_drawing';
+import {drawCanvas, drawTriangular, drawTriangularHue} from './scripts/mask_drawing';
 import 'regenerator-runtime/runtime';
 
 let model; 
@@ -54,16 +54,17 @@ async function runDetection(){
                 for(let i=0; i<predictions_arr.length;i++){ //could this just be predictions_arr[0]?
                     const keypoints = predictions_arr[i].scaledMesh; //getting the nomalized 3d coordination landmarks (scaledMesh is the normalized coordination)
                     // drawCanvas(keypoints, ctx);
-                    drawTriangular(keypoints, ctx);
+                    // drawTriangular(keypoints, ctx);
+                    drawTriangularHue(keypoints, ctx)
                 }
             }
             //recursively calling itself to continously run the detection per frame
             requestAnimationFrame(drawMask);
         }
-        drawMask()
-    };
+        drawMask();
+    }
     
-}
+};
 
 
 async function main(){

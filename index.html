@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
+    
     <title>Mirror</title>
 </head>
 
@@ -13,14 +14,11 @@
     <!-- playinline for not having the modal like effect  -->
     <!-- autoplay for automatic play when page's loaded -->
     <div id='webcam'>
-        <video id="cam" autoplay='true' playsinline width="480" height="480" style='
-            -webkit-transform: scaleX(-1);
-            transform: scaleX(-1);
-            visibility: hidden;
-        '></video>
-
-        <canvas id='canvas'>
-        </canvas>
+        <video id="cam" autoplay='true' playsinline width="480" height="380" style='visibility: hidden'></video>
+        <canvas id='canvas'></canvas>
+    </div>
+    <div id='second-webcam' >
+        <canvas id='second-canvas' width="480" height="380"></canvas>
     </div>
 
 

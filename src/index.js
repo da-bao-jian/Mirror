@@ -66,9 +66,9 @@ async function runDetection(){
                 console.log(predictions_arr) 
                 for(let i=0; i<predictions_arr.length;i++){ //could this just be predictions_arr[0]?
                     const keypoints = predictions_arr[i].scaledMesh; //getting the nomalized 3d coordination landmarks (scaledMesh is the normalized coordination)
-                    drawCanvas(keypoints, ctx1);
+                    // drawCanvas(keypoints, ctx1);
 
-                    drawTriangular(keypoints, ctx2, face);
+                    // drawTriangular(keypoints, ctx2, face);
                     
                     // drawTriangularHue(keypoints, ctx2, face)
                 }

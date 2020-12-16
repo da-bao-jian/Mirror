@@ -4,6 +4,7 @@ import {TRIANGULATION} from './triangulation';
 
 
 export function drawCanvas(keypoints, ctx, face=null){
+    //take in an optional argument depending on the ctx it's rendering
     face === null ? null : ctx.clearRect(0, 0, face.width, face.height);
     for(let j = 0; j<keypoints.length; j++){
         const x = keypoints[j][0]; //x and y are horizontal and vertical coordination; z is the depth coordination derived from x using weak perspective projection
@@ -59,7 +60,8 @@ export function drawTriangularHue(keypoints, ctx, face=null){
     }   
 };  
 
-export function drawTriangularBWG(keypoints, ctx){ 
+export function drawTriangularBWG(keypoints, ctx, face=null){ 
+    face === null ? null : ctx.clearRect(0, 0, face.width, face.height);
     for (let i = 0; i < TRIANGULATION.length; i+=3) {
         const points = [
         TRIANGULATION[i], TRIANGULATION[i + 1],
@@ -78,6 +80,8 @@ export function drawTriangularBWG(keypoints, ctx){
         ctx.fill();
     }   
 };  
+
+
 
 
 

@@ -29,77 +29,143 @@ function getCameraReady() {
     });
 
     return promise.then(
-        // (values)=>(console.log(values)),
-        ()=>(console.log('webcam setup ready')),
-        ()=>(console.log('webcam setup failed'))
-    )
-}
+
+      ()=>(console.log('webcam setup ready')),
+      ()=>(console.log('webcam setup failed'))
+
+    );
+};
 
 
 
 //run detection
-async function runDetection(){
+async function runDetection(maskName){
 
-    const webCam = document.getElementById('cam');
-    const webCamWidth = webCam.width;
-    const webCamHeight = webCam.height;
+  const webCam = document.getElementById('cam');
+  const webCamWidth = webCam.width;
+  const webCamHeight = webCam.height;
 
-    const canvas = document.getElementById('canvas');
-    canvas.width = webCamWidth;
-    canvas.height = webCamHeight;
-    const ctx1 = canvas.getContext('2d');
+  const canvas = document.getElementById('canvas');
+  canvas.width = webCamWidth;
+  canvas.height = webCamHeight;
+  const ctx1 = canvas.getContext('2d');
 
-    const second_canvas = document.getElementById('second-canvas');
-    const second_canvasWidth = second_canvas.width;
-    const second_canvasHeight = second_canvas.height;
+  const second_canvas = document.getElementById('second-canvas');
+  const second_canvasWidth = second_canvas.width;
+  const second_canvasHeight = second_canvas.height;
 
-    const face = document.getElementById('second-canvas');
-    face.width = second_canvasWidth;
-    face.height = second_canvasHeight;
-    const ctx2 = face.getContext('2d');
+  const face = document.getElementById('second-canvas');
+  face.width = second_canvasWidth;
+  face.height = second_canvasHeight;
+  const ctx2 = face.getContext('2d');
 
-    if(cam.readyState === 4){
-        const drawMask = async() => { //drawing the mask per frame
-            const predictions_arr = await model.estimateFaces({input: webCam}); //scaledMesh.length = 478 because of using the updated Iris model; original scaledMesh should only have 468 end points
-            ctx1.drawImage(webCam, 0, 0, webCam.width, webCam.height, 0,0, canvas.width, canvas.height);
-            ctx2.drawImage(second_canvas, 0, 0, webCam.width, webCam.height, 0,0, face.width, face.height);
-            if(predictions_arr.length !== 0){
-                console.log(predictions_arr) 
-                for(let i=0; i<predictions_arr.length;i++){ //could this just be predictions_arr[0]?
-                    const keypoints = predictions_arr[i].scaledMesh; //getting the nomalized 3d coordination landmarks (scaledMesh is the normalized coordination)
+  if(cam.readyState === 4){
+      const drawMask = async() => { //drawing the mask per frame
+          const predictions_arr = await model.estimateFaces({input: webCam}); //scaledMesh.length = 478 because of using the updated Iris model; original scaledMesh should only have 468 end points
+          ctx1.drawImage(webCam, 0, 0, webCam.width, webCam.height, 0,0, canvas.width, canvas.height);
+          ctx2.drawImage(second_canvas, 0, 0, webCam.width, webCam.height, 0,0, face.width, face.height);
+          if(predictions_arr.length !== 0){
+              console.log(predictions_arr) 
+              for(let i=0; i<predictions_arr.length;i++){ //could this just be predictions_arr[0]?
+                  const keypoints = predictions_arr[i].scaledMesh; //getting the nomalized 3d coordination landmarks (scaledMesh is the normalized coordination)
+                  
+                  if(maskName === 'grid-points'){
                     drawCanvas(keypoints, ctx1);
-
+                  } else if (maskName ==='triangular'){
                     drawTriangular(keypoints, ctx2, face);
-                    
-                    drawTriangularHue(keypoints, ctx2, face)
-                }
-            }
-            //recursively calling itself to continously run the detection per frame
-            requestAnimationFrame(drawMask);
-        }
-        drawMask();
-    }
-    
+                  } else if (maskName ==='color-hue') {
+                    drawTriangularHue(keypoints, ctx2, face);
+                  } else if (maskName ==='BWGHue') {
+                    drawTriangularBWG(keypoints, ctx2, face);
+                  };
+              };
+          };
+          //recursively calling itself to continously run the detection per frame
+          requestAnimationFrame(drawMask);
+      };
+      drawMask();
+  };
 };
 
+const allText = [];
+let pTag = document.createElement('p')
+const speechReco = webkitSpeechRecognition || SpeechRecognition;
+const recognition = new speechReco();
+// recognition.continuous = true;
+recognition.interimResults = true;
+recognition.lang = 'en-US';
+recognition.onresult = function(e) {
 
-async function main(){
+  const sentence = Array.from(e.results).map(res=>(res[0])).map(r=>r.transcript).join('');
+  console.log(sentence);
+
+  const textContainer = document.querySelector('.text-container')
+  pTag.innerText = sentence;
+  textContainer.appendChild(pTag)
+
+  if(e.results[0].isFinal){
+    if(sentence.includes('start')){
+      main('start');
+    } else if(sentence.includes('triangular')){
+      main('triangular')
+    } else if (sentence.includes('color')) {
+      main('color');
+    } else if ( sentence.includes('noir')) {
+      main('noir');
+    }
+  };
+};
+
+recognition.addEventListener('end', ()=>{
+  recognition.start();
+})
+
+recognition.start();
+
+
+
+async function main(name=null){
+
+  if (name === 'start'){
     await getCameraReady();
-    model = await facemesh.load(
-        facemesh.SupportedPackages.mediapipeFacemesh);
-    // await getCameraReady();
-    runDetection();
-    
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('grid-points')
+
+  } else if(name==='triangular'){
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('triangular')
+  } else if(name==='color'){
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('color-hue')
+  } else if(name==='noir'){
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('BWGHue')
+  };
+
+  document.getElementById('triangular').addEventListener('click', async()=>{
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('triangular')
+  });
+  document.getElementById('color-hue').addEventListener('click', async()=>{
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('color-hue')
+  });
+  document.getElementById('BWGHue').addEventListener('click', async()=>{
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('BWGHue')
+  });
+  document.getElementById('clear').addEventListener('click', async()=>{
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('grid-points')
+  }); 
 };
 // main()
 
 
-// const s = function( sketch ) {
-//     sketch.setup = function() {
-//       sketch.createCanvas(700, 410);
-//       sketch.background(0);
-//     };
-//   };    
-// const myp5 = new p5(s);
-
-// console.log('a')

@@ -13,8 +13,7 @@
 </head>
 
 <body>
-    <!-- playinline for not having the modal like effect  -->
-    <!-- autoplay for automatic play when page's loaded -->
+
     <div id='webcam'>
         <video id="cam" autoplay='true' playsinline width="480" height="380" style='visibility: hidden'></video>
         <canvas id='canvas'></canvas>
@@ -22,13 +21,17 @@
     <div id='second-webcam' >
         <canvas id='second-canvas' width="480" height="380"></canvas>
     </div>
-
-
-
-
-
-
+    
+    <div class='text-container'>
+        
+    </div>
+    
+    <button id='triangular'>Triangulation</button>
+    <button id='color-hue'>color-hue</button>
+    <button id='BWGHue'>noir</button>
+    <button id='clear'>Clear</button>
     <script src="./dist/main.js"></script>
+
 </body>
 
 </html>

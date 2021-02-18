@@ -78,7 +78,7 @@ export function drawTriangularBWG(keypoints, ctx, face=null){
         ctx.lineTo(points[2][0], points[2][1]);
         ctx.fillStyle = bwg;
         ctx.fill();
-    }   
+    };   
 };  
 
 

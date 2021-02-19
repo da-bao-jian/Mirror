@@ -4,7 +4,6 @@ import '@tensorflow/tfjs-backend-webgl';
 import TRIANGULATION from './scripts/triangulation';
 import {drawCanvas, drawTriangular, drawTriangularHue, drawTriangularBWG} from './scripts/mask_drawing';
 import 'regenerator-runtime/runtime';
-// import p5;
 
 let model; 
 let webCam; 
@@ -35,7 +34,6 @@ function getCameraReady() {
 
     );
 };
-
 
 
 //run detection
@@ -146,6 +144,7 @@ async function main(name=null){
   };
 
   document.getElementById('triangular').addEventListener('click', async()=>{
+    debugger
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('triangular')
@@ -160,7 +159,7 @@ async function main(name=null){
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('BWGHue')
   });
-  document.getElementById('clear').addEventListener('click', async()=>{
+  document.getElementById('restart').addEventListener('click', async()=>{
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('grid-points')
@@ -168,4 +167,33 @@ async function main(name=null){
 };
 // main()
 
+const sketch = (pen) => {
+  pen.x = 100;
+  pen.y = 100;
 
+  pen.setup = () => {
+    pen.createCanvas(
+      window.innerWidth,
+      window.innerHeight
+    );
+    pen.background(51)
+  };
+  
+  pen.draw = () => {
+
+  };
+};
+const textP5 = new p5(sketch);
+
+
+// function setup(){
+//   createCanvas(
+//     window.innerWidth,
+//     window.innerHeight
+//   );
+// }
+
+// function draw(){
+//   background(0);
+
+// }

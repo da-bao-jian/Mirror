@@ -21,6 +21,16 @@ html, body{
     
     }
 }
-canvas {
-  display: block;
+.p5Canvas{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background-color: transparent;
 }
+.button-list{
+    bottom: 0;
+    position: absolute;
+    z-index: 100000;
+}
+

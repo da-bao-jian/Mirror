@@ -10,6 +10,7 @@ let webCam;
 
 //setup webcam 
 function getCameraReady() {
+  
     const cam = document.getElementById('cam');
     navigator.mediaDevices.getUserMedia({
         video: {
@@ -85,40 +86,44 @@ async function runDetection(maskName){
   };
 };
 
-const allText = [];
-let pTag = document.createElement('p')
-const speechReco = webkitSpeechRecognition || SpeechRecognition;
-const recognition = new speechReco();
-// recognition.continuous = true;
-recognition.interimResults = true;
-recognition.lang = 'en-US';
-recognition.onresult = function(e) {
+// window.addEventListener('DOMContentLoaded', () => {
 
-  const sentence = Array.from(e.results).map(res=>(res[0])).map(r=>r.transcript).join('');
-  console.log(sentence);
-
-  const textContainer = document.querySelector('.text-container')
-  pTag.innerText = sentence;
-  textContainer.appendChild(pTag)
-
-  if(e.results[0].isFinal){
-    if(sentence.includes('start')){
-      main('start');
-    } else if(sentence.includes('triangular')){
-      main('triangular')
-    } else if (sentence.includes('color')) {
-      main('color');
-    } else if ( sentence.includes('noir')) {
-      main('noir');
-    }
+  let allText = [];
+  let pTag = document.createElement('p')
+  let speechReco = webkitSpeechRecognition || SpeechRecognition;
+  let recognition = new speechReco();
+  // recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  recognition.onresult = function(e) {
+  
+    const sentence = Array.from(e.results).map(res=>(res[0])).map(r=>r.transcript).join('');
+    console.log(sentence);
+  
+    const textContainer = document.querySelector('.text-container')
+    pTag.innerText = sentence;
+    textContainer.appendChild(pTag)
+  
+    if(e.results[0].isFinal){
+      if(sentence.includes('start')){
+        main('start');
+      } else if(sentence.includes('triangular')){
+        main('triangular')
+      } else if (sentence.includes('color')) {
+        main('color');
+      } else if ( sentence.includes('noir')) {
+        main('noir');
+      }
+    };
   };
-};
 
-recognition.addEventListener('end', ()=>{
+  recognition.addEventListener('end', ()=>{
+    recognition.start();
+  })
+  
   recognition.start();
-})
+// })
 
-recognition.start();
 
 
 
@@ -144,7 +149,7 @@ async function main(name=null){
   };
 
   document.getElementById('triangular').addEventListener('click', async()=>{
-    debugger
+    
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('triangular')
@@ -167,33 +172,55 @@ async function main(name=null){
 };
 // main()
 
-const sketch = (pen) => {
-  pen.x = 100;
-  pen.y = 100;
 
+
+const randomizer = () => {
+  return String.fromCharCode(0x30A0 + randInt(0,96));
+};
+
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); 
+};
+
+const sketch = (pen) => {
   pen.setup = () => {
+
+    pen.x = window.innerWidth/2;
+    pen.y = 0;
+    pen.value = randomizer();
+    pen.rand = Math.floor(Math.random(0,1000000)*10);
+
     pen.createCanvas(
       window.innerWidth,
       window.innerHeight
     );
-    pen.background(51)
+    pen.background(0)
   };
   
   pen.draw = () => {
 
+    pen.fill(140, 255, 170, 250);
+    pen.background(0);
+    pen.text(pen.value, pen.x, pen.y);
+    pen.textSize(40);
+
+    if(pen.y >= window.innerHeight){
+      pen.y = 0;
+      // pen.rand = 0;
+    } else {
+      pen.y += 2;
+      // pen.rand += Math.floor(Math.random(2,4)*10);
+    };
+    if(pen.frameCount % pen.rand === 4){
+      // console.log(pen.frameCount)
+      pen.value = randomizer();
+    }
   };
 };
+
 const textP5 = new p5(sketch);
 
 
-// function setup(){
-//   createCanvas(
-//     window.innerWidth,
-//     window.innerHeight
-//   );
-// }
 
-// function draw(){
-//   background(0);
-
-// }

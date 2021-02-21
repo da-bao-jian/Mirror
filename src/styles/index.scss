@@ -29,8 +29,18 @@ html, body{
     background-color: transparent;
 }
 .button-list{
-    bottom: 0;
+    bottom: 58px;
+    display: flex;
     position: absolute;
     z-index: 100000;
+    margin-left: 91px;
 }
+#second-canvas{
+    
+    width: 41%;
+    margin-left: 59%;
 
+}
+.buttons{
+    margin: 5%; 
+}

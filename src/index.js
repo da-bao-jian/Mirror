@@ -1,7 +1,6 @@
 import "./styles/index.scss";
 import * as facemesh from '@tensorflow-models/face-landmarks-detection';
 import '@tensorflow/tfjs-backend-webgl';
-import TRIANGULATION from './scripts/triangulation';
 import {drawCanvas, drawTriangular, drawTriangularHue, drawTriangularBWG} from './scripts/mask_drawing';
 import 'regenerator-runtime/runtime';
 
@@ -87,13 +86,13 @@ async function runDetection(maskName){
 };
 
 // window.addEventListener('DOMContentLoaded', () => {
-
-  let allText = [];
+  let screenText = [];
+  let canvses = [];
   let pTag = document.createElement('p')
   let speechReco = webkitSpeechRecognition || SpeechRecognition;
   let recognition = new speechReco();
   // recognition.continuous = true;
-  recognition.interimResults = true;
+  recognition.interimResults = false;
   recognition.lang = 'en-US';
   recognition.onresult = function(e) {
   
@@ -101,18 +100,23 @@ async function runDetection(maskName){
     console.log(sentence);
   
     const textContainer = document.querySelector('.text-container')
+    screenText.push(sentence);
+  
     pTag.innerText = sentence;
     textContainer.appendChild(pTag)
   
     if(e.results[0].isFinal){
+
+      canvses.push(new p5(sketch));
+      
       if(sentence.includes('start')){
         main('start');
       } else if(sentence.includes('triangular')){
         main('triangular')
       } else if (sentence.includes('color')) {
         main('color');
-      } else if ( sentence.includes('noir')) {
-        main('noir');
+      } else if ( sentence.includes('black and white')) {
+        main('black and white');
       }
     };
   };
@@ -142,7 +146,7 @@ async function main(name=null){
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('color-hue')
-  } else if(name==='noir'){
+  } else if(name==='black and white'){
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('BWGHue')
@@ -172,10 +176,12 @@ async function main(name=null){
 };
 // main()
 
+debugger
 
-
-const randomizer = () => {
-  return String.fromCharCode(0x30A0 + randInt(0,96));
+const textGenerator = () => {
+  
+  return screenText.splice(screenText.length-1);
+  // return String.fromCharCode(0x30A0 + randInt(0,96));
 };
 
 function randInt(min, max) {
@@ -187,40 +193,51 @@ function randInt(min, max) {
 const sketch = (pen) => {
   pen.setup = () => {
 
-    pen.x = window.innerWidth/2;
-    pen.y = 0;
-    pen.value = randomizer();
+    pen.x = window.innerWidth/randInt(2, 10);
+    pen.y =  window.innerHeight/randInt(2, 10);
+    pen.value = textGenerator();
+    debugger
     pen.rand = Math.floor(Math.random(0,1000000)*10);
 
     pen.createCanvas(
       window.innerWidth,
       window.innerHeight
     );
-    pen.background(0)
   };
   
   pen.draw = () => {
+    if(pen.value.length>0){
 
-    pen.fill(140, 255, 170, 250);
-    pen.background(0);
-    pen.text(pen.value, pen.x, pen.y);
-    pen.textSize(40);
+      // if(pen.frameCount % pen.rand === 5){
+        
+      //   pen.value = textGenerator()[randInt(0,  textGenerator().length)];
+      // };
 
-    if(pen.y >= window.innerHeight){
-      pen.y = 0;
-      // pen.rand = 0;
-    } else {
-      pen.y += 2;
-      // pen.rand += Math.floor(Math.random(2,4)*10);
+      
+      pen.fill(140, 255, 170, 250);
+      pen.clear();
+      pen.text(pen.value, pen.x, pen.y);
+      pen.textSize(50);
+
+      if(pen.x >= window.innerWidth){
+        pen.x = 0;
+      } else {
+        pen.x += 2; //can be set to random  
+      };
     };
-    if(pen.frameCount % pen.rand === 4){
-      // console.log(pen.frameCount)
-      pen.value = randomizer();
-    }
   };
 };
 
-const textP5 = new p5(sketch);
+// const textP5 = new p5(sketch);
 
+// function display(){
+  // const canvses = {};
+  // if(screenText.length<100){
+  //   debugger
+  //   for(let i = 0; i<screenText.length; i++){
+  //     canvses[i] = new p5(sketch);
+  //   };
+  // };
+// }
 
-
+// display()

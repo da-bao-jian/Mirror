@@ -1,7 +1,8 @@
 html, body{
-    background-image: url('grid.jpg');
+    background-image: image-url('grid.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: black;
     margin: 0;
     padding: 0;
     min-width: 100%;
@@ -20,4 +21,27 @@ html, body{
         }
     
     }
+}
+.p5Canvas{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background-color: transparent;
+}
+.button-list{
+    bottom: 58px;
+    display: flex;
+    position: absolute;
+    z-index: 100000;
+    margin-left: 91px;
+}
+#second-canvas{
+    
+    width: 41%;
+    margin-left: 59%;
+
+}
+.buttons{
+    margin: 5%; 
 }

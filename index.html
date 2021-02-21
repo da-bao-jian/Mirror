@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.4/build/98.css" />
+
+
     <title>Mirror</title>
 </head>
 
 <body>
-    <!-- playinline for not having the modal like effect  -->
-    <!-- autoplay for automatic play when page's loaded -->
+
     <div id='webcam'>
         <video id="cam" autoplay='true' playsinline width="480" height="380" style='visibility: hidden'></video>
         <canvas id='canvas'></canvas>
@@ -20,13 +24,19 @@
     <div id='second-webcam' >
         <canvas id='second-canvas' width="480" height="380"></canvas>
     </div>
+    
+    <div class='text-container'>
 
+    </div>
 
-
-
-
-
+    <div class='button-list'>
+        <button id='triangular' class='buttons'>Triangulation</button>
+        <button id='color-hue' class='buttons'>Color</button>
+        <button id='BWGHue' class='buttons'>Black and White</button>
+        <button id='restart' class='buttons'>Clear</button>
+    </div>
     <script src="./dist/main.js"></script>
+
 </body>
 
 </html>

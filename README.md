@@ -17,7 +17,7 @@ Mirror is a creative coding project experimenting with the Tensorflow.js package
 
 * Head over to the [Live](https://dabaojian1992.github.io/Mirror/) site;
 
-* Upon granting access to the microphone and webcam, say "START";
+* Upon granting access to the microphone and webcam, say "START" (this could take couple seconds);
 
 * Once the voice input turns into floating text on the screen, the webcam will initiate facial scan;
 

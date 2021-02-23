@@ -1,68 +1,28 @@
 
 # The Mirror
 
-Mirror is a real time human-computer interaction app where computer will capture the user's facial structure and generat art effect.
+Mirror is a creative coding project experimenting with the Tensorflow.js package.
+
+![Demo](https://github.com/dabaojian1992/Mirror/blob/main/2021-02-22%2016.40.44.gif)
 
 ### Technology Used ###
 
--Tensorflowjs
-
--P5/Threejs/D3/pts (TBD)
-
 -Vanilla Javascript
 
+-Tensorflowjs
 
-### Wireframe ###
+-P5
 
-![wireframe](https://github.com/dabaojian1992/mirror/blob/main/wireframe.png)
+### To start ###
 
+* Head over to the [Live](https://dabaojian1992.github.io/Mirror/) site;
 
+* Upon granting access to the microphone and webcam, say "START";
 
+* Once the voice input turns into floating text on the screen, the webcam will initiate facial scan;
 
-### File Structure ###
+* Try switching between the masks either using the buttons on the bottom or saying the name of the mask;
 
+* Everything you say will be translated into floating text on the screen
 
-•dist 
-
-•src
-
-•index.html
-
-•gitignore
-
-•node_modules
-
-•package.json
-
-•package.lock.json
-
-•postcss.config.js
-
-•webpack.common.js
-
-•webpack.dev.js
-
-•webpack.prod.js
-
-
-
-### Functionality and MVP ###
-
--Computer is able to detect user's facial structure 
-
--real-time effect rendering per user's selection 
-
-### Timeline ###
-
-12/7 getting familiar with using tensorflowjs library and generating facial structure detection
-
-12/8 generating the facial structure detection/experimenting different visual libraries
-
-12/9 creating real-time effect
-
-12/10 creating real-time effect
-
-12/11 incorporating art effect through user's camera
-
-### Bonus Features ###
--incorporating user's voice into the app and generating effects real time according user's voice input
+* Have fun! 

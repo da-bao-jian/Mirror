@@ -176,7 +176,7 @@ async function main(name=null){
 };
 // main()
 
-debugger
+
 
 const textGenerator = () => {
   
@@ -196,7 +196,6 @@ const sketch = (pen) => {
     pen.x = window.innerWidth/randInt(2, 10);
     pen.y =  window.innerHeight/randInt(2, 10);
     pen.value = textGenerator();
-    debugger
     pen.rand = Math.floor(Math.random(0,1000000)*10);
 
     pen.createCanvas(

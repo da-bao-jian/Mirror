@@ -117,6 +117,8 @@ async function runDetection(maskName){
         main('color');
       } else if ( sentence.includes('black and white')) {
         main('black and white');
+      } else if ( sentence.includes('clear')) {
+        main('clear');
       }
     };
   };
@@ -150,6 +152,10 @@ async function main(name=null){
     await getCameraReady();
     model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     runDetection('BWGHue')
+  } else if(name==='clear'){
+    await getCameraReady();
+    model = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    runDetection('grid-points')
   };
 
   document.getElementById('triangular').addEventListener('click', async()=>{
@@ -175,7 +181,6 @@ async function main(name=null){
   }); 
 };
 // main()
-
 
 
 const textGenerator = () => {
@@ -207,12 +212,11 @@ const sketch = (pen) => {
   pen.draw = () => {
     if(pen.value.length>0){
 
-      // if(pen.frameCount % pen.rand === 5){
+      // if(pen.frameCount % pen.rand === 2){
         
       //   pen.value = textGenerator()[randInt(0,  textGenerator().length)];
       // };
 
-      
       pen.fill(140, 255, 170, 250);
       pen.clear();
       pen.text(pen.value, pen.x, pen.y);
@@ -227,16 +231,3 @@ const sketch = (pen) => {
   };
 };
 
-// const textP5 = new p5(sketch);
-
-// function display(){
-  // const canvses = {};
-  // if(screenText.length<100){
-  //   debugger
-  //   for(let i = 0; i<screenText.length; i++){
-  //     canvses[i] = new p5(sketch);
-  //   };
-  // };
-// }
-
-// display()

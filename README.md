@@ -1,7 +1,6 @@
 
 # The Mirror
 
-Mirror is a creative coding project experimenting with the Tensorflow.js package.
 
 ![Demo](https://github.com/dabaojian1992/Mirror/blob/master/2021-02-22%2016.40.44.gif)
 

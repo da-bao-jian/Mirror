@@ -4,13 +4,6 @@
 
 ![Demo](https://github.com/dabaojian1992/Mirror/blob/master/2021-02-22%2016.40.44.gif)
 
-### Technology Used ###
-
--Vanilla Javascript
-
--Tensorflowjs
-
--P5
 
 ### To start ###
 
